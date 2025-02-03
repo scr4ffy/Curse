@@ -1,0 +1,56 @@
+@model IEnumerable<BikeShop.Models.CartViewModel>
+
+<h2>Корзина</h2>
+@if (!Model.Any())
+{
+    <p>Ваша корзина пуста. Добавьте товары, чтобы оформить заказ.</p>
+}
+else
+{
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+<table>
+    <thead>
+        <tr>
+            <th>Изображение</th>
+            <th>Название</th>
+            <th>Цена за единицу</th>
+            <th>Количество</th>
+            <th>Общая цена</th>
+            <th>Действия</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td><img src="@item.ImagePath" alt="@item.Name" style="width:100px; height:auto;" /></td>
+                <td>@item.Name</td>
+                <td>@item.UnitPrice &#8381;</td>
+                <td>
+                    <form asp-action="UpdateQuantity" method="post">
+                        <input type="hidden" name="bikeId" value="@item.BikeId" />
+                        <button type="submit" name="action" value="decrease">-</button>
+                        <span>@item.Quantity</span>
+                        <button type="submit" name="action" value="increase">+</button>
+                    </form>
+                </td>
+                <td>@item.TotalPrice &#8381;</td>
+                <td>
+                    <form asp-action="RemoveFromCart" method="post">
+                        <input type="hidden" name="bikeId" value="@item.BikeId" />
+                        <button type="submit">Удалить</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<p>Итоговая сумма: @Model.Sum(i => i.TotalPrice) &#8381;</p>
+<a href="/Order/Checkout" class="btn btn-primary">Оформить заказ</a>
+}

@@ -1,0 +1,31 @@
+@{
+    ViewBag.Title = "Изменить Email";
+}
+
+<h2>Изменить Email</h2>
+
+<form asp-action="ChangeEmail" method="post">
+    <div>
+        <label for="currentPassword">Текущий пароль</label>
+        <input type="password" id="currentPassword" name="currentPassword" required />
+    </div>
+    <div>
+        <label for="newEmail">Новый Email</label>
+        <input type="email" id="newEmail" name="newEmail" required />
+    </div>
+    <button type="submit">Сохранить изменения</button>
+</form>
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="error">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="success">
+        @TempData["SuccessMessage"]
+    </div>
+}

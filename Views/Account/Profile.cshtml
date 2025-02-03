@@ -1,0 +1,41 @@
+@model BikeShop.Models.User
+
+<h2>Профиль пользователя</h2>
+
+<div>
+    <img src="@Url.Content("~/images/" + ViewBag.ProfileImagePath)" alt="Фото профиля" style="width:150px;height:150px;" />
+    <p><strong>Email:</strong> @Model.Email</p>
+</div>
+
+<!-- Кнопка для загрузки нового аватара -->
+<form asp-action="UploadProfileImage" method="post" enctype="multipart/form-data">
+    <div class="mb-3">
+        <label for="file">Выберите аватар</label>
+        <input type="file" name="file" accept="image/*" class="form-control" required />
+    </div>
+    <button type="submit" class="btn btn-primary">Загрузить аватар</button>
+    <a asp-action="Address" class="btn btn-primary">Адрес доставки</a>
+    <a asp-action="Pay" class="btn btn-primary">Способы оплаты</a>
+</form>
+
+<!-- Кнопка для смены пароля -->
+<a asp-action="ChangePassword" class="btn btn-warning mt-3">Сменить пароль</a>
+<a asp-action="ChangeEmail" class="btn btn-warning mt-3">Сменить Email</a>
+<!-- Кнопка для выхода из системы -->
+<form asp-action="Logout" method="post">
+    <button type="submit" class="btn btn-danger mt-3">Выйти</button>
+</form>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success mt-3">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger mt-3">
+        @TempData["ErrorMessage"]
+    </div>
+}

@@ -1,0 +1,73 @@
+@model List<BikeShop.Models.Bike>
+
+<h2>Каталог велосипедов</h2>
+
+<!-- Форма для поиска и фильтрации -->
+<form asp-action="Index" method="get" class="mb-3">
+    <div class="row g-3">
+        <div class="col-md-3">
+            <input type="text" name="searchQuery" class="form-control" placeholder="Введите название или описание"
+                   value="@ViewData["SearchQuery"]" />
+        </div>
+        <div class="col-md-2">
+            <input type="number" name="minPrice" class="form-control" placeholder="Мин. цена"
+                   value="@ViewData["MinPrice"]" />
+        </div>
+        <div class="col-md-2">
+            <input type="number" name="maxPrice" class="form-control" placeholder="Макс. цена"
+                   value="@ViewData["MaxPrice"]" />
+        </div>
+        <div class="col-md-3">
+<select name="category" class="form-select">
+    <option value="" selected="@(ViewData["Category"]?.ToString() == "" ? "selected" : null)">Все категории</option>
+    <option value="Горный" selected="@(ViewData["Category"]?.ToString() == "Горный" ? "selected" : null)">Горный</option>
+    <option value="Городской" selected="@(ViewData["Category"]?.ToString() == "Городской" ? "selected" : null)">Городской</option>
+    <option value="Детский" selected="@(ViewData["Category"]?.ToString() == "Детский" ? "selected" : null)">Детский</option>
+</select>
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-primary w-100">Применить фильтры</button>
+        </div>
+    </div>
+</form>
+
+@if (Model.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Название</th>
+                <th>Категория</th>
+                <th>Цена</th>
+                <th>Описание</th>
+                <th>Изображение</th>
+                <th>Действия</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var bike in Model)
+            {
+                <tr>
+                    <td>@bike.Name</td>
+                    <td>@bike.Category</td> 
+                    <td>@bike.Price</td>
+                    <td>@bike.Description</td>
+                    <td>
+                        <img src="@bike.ImagePath" alt="@bike.Name" style="max-width: 100px;" />
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Details", "Catalog", new { id = bike.Id })" class="btn btn-secondary mb-2">Посмотреть детали</a>
+                        <form asp-action="AddToWishlist" asp-controller="Wishlist" method="post" style="margin-top: 10px;">
+                            <input type="hidden" name="bikeId" value="@bike.Id" />
+                            <button type="submit" class="btn btn-success">Добавить в желаемое</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>По вашему запросу ничего не найдено.</p>
+}

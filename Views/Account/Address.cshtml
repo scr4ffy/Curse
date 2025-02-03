@@ -1,0 +1,29 @@
+@{
+    ViewBag.Title = "Адрес доставки";
+}
+
+<h2>Адрес доставки</h2>
+
+<p>Текущий адрес: @ViewBag.Address</p>
+
+<form asp-action="Address" method="post">
+    <div>
+        <label for="Address">Новый адрес</label>
+        <textarea id="Address" name="Address" rows="4" cols="50" required>@ViewBag.Address</textarea>
+    </div>
+    <button type="submit">Сохранить</button>
+</form>
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="error">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="success">
+        @TempData["SuccessMessage"]
+    </div>
+}

@@ -1,0 +1,23 @@
+@model BikeShop.Models.Bike
+
+<div class="container">
+    <h1>@Model.Name</h1>
+    <img src="@Model.ImagePath" alt="@Model.Name" class="img-fluid" />
+    <h3>Цена: <strong>@Model.Price</strong> руб.</h3>
+    <p>@Model.Description</p>
+
+    <!-- Форма для добавления в корзину -->
+    <form action="/Cart/AddToCart" method="post">
+        <input type="hidden" name="bikeId" value="@Model.Id" />
+        <input type="hidden" name="name" value="@Model.Name" />
+        <input type="hidden" name="imagePath" value="@Model.ImagePath" />
+        <input type="hidden" name="unitPrice" value="@Model.Price" />
+        <button type="submit" class="btn btn-primary mb-2">Добавить в корзину</button>
+    </form>
+
+    <!-- Форма для добавления в желаемое -->
+<form asp-action="AddToWishlist" asp-controller="Wishlist" method="post">
+    <input type="hidden" name="bikeId" value="@Model.Id" />
+    <button type="submit" class="btn btn-secondary">Добавить в желаемое</button>
+</form>
+</div>

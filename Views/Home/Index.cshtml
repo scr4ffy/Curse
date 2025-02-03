@@ -1,0 +1,40 @@
+﻿@{
+    ViewData["Title"] = "Интернет-магазин велосипедов";
+}
+
+<div>
+    <h2>
+        <img src="~/images/welcome main1.png" alt="Добро пожаловать" style="width: 100%; height: auto; margin-right: 10px;" />
+    </h2>
+</div>
+
+<div>
+    <h3>Наши велосипеды:</h3>
+    <a asp-controller="Catalog" asp-action="Details" asp-route-id="1">
+        <img src="~/images/bike1.jpg" alt="Велосипед 1" style="width: 145px; height: auto; margin: 10px;" />
+    </a>
+    <a asp-controller="Catalog" asp-action="Details" asp-route-id="2">
+        <img src="~/images/bike2.jpg" alt="Велосипед 2" style="width: 145px; height: auto; margin: 10px;" />
+    </a>
+    <a asp-controller="Catalog" asp-action="Details" asp-route-id="3">
+        <img src="~/images/bike3.jpg" alt="Велосипед 3" style="width: 145px; height: auto; margin: 10px;" />
+    </a>
+</div>
+
+
+<style>
+    .btn {
+        display: inline-block;
+        padding: 10px 20px;
+        margin: 10px;
+        background-color: #007BFF;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+    }
+
+    .btn:hover {
+        background-color: #0056b3;
+    }
+</style>

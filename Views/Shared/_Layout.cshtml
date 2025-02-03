@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - BikeShop</title>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/BikeShop.styles.css" asp-append-version="true" />
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <div class="container-fluid">
+            <div style="margin-left: 50px;"></div>
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                <img src="~/images/logo.png" alt="Слайдер" style="width:200px; height:auto;" />
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-controller="Catalog" asp-action="Index">
+                            <img src="~/images/catalog1.png" alt="Каталог" style="width:130px; height:auto; margin-left:0px;" />
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-controller="Cart" asp-action="Index">
+                            <img src="~/images/cart2.png" alt="Корзина" style="width:130px; height:auto; margin-left:0px;" />
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-controller="Home" asp-action="Privacy">
+                            <img src="~/images/contacts.png" alt="Контакты" style="width:130px; height:auto;" />
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-controller="Wishlist" asp-action="Index">
+                            <img src="~/images/wishlist.png" alt="Желаемое" style="width:150px; height:auto; margin-left:-5px; margin-top:-5px" />
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="d-flex align-items-center flex-column text-center">
+                    @if (User.Identity != null && User.Identity.IsAuthenticated)
+                    {
+                        <!-- Если пользователь авторизован, ссылка ведет на профиль -->
+                        <a asp-controller="Account" asp-action="Profile" title="Профиль">
+                            <img src="~/images/profile.png" alt="Профиль" style="width:30px; height:auto; margin-left:20px; margin-right:50px; margin-top: 5px;" />
+                        </a>
+                        <a asp-controller="Account" asp-action="Profile" style="margin-right: 30px;">Профиль</a>
+                    }
+                    else
+                    {
+                        <!-- Если пользователь не авторизован, ссылка ведет на страницу входа -->
+                        <a asp-controller="Account" asp-action="Login" title="Войти">
+                            <img src="~/images/profile.png" alt="Войти" style="width:30px; height:auto; margin-left:20px; margin-right:50px; margin-top: 5px;" />
+                        </a>
+                        <a asp-controller="Account" asp-action="Login" style="margin-right: 30px;">Войти</a>
+                    }
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<div class="container">
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
+</div>
+
+<footer class="border-top footer text-muted">
+    <div class="container">
+        &copy; 2024 - BikeShop - <a asp-area="" asp-controller="Home" asp-action="Privacy">Контакты</a>
+    </div>
+</footer>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

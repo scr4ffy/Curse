@@ -1,0 +1,27 @@
+@model BikeShop.Models.OrderViewModel
+
+<h2>Оформление заказа</h2>
+<hr />
+
+<form asp-action="PlaceOrder" method="post">
+    <div>
+        <label>Способ оплаты:</label>
+        <select asp-for="Pay" class="form-control" id="paymentMethod">
+            <option value="card" selected="@(Model.Pay == "card" ? "selected" : null)">Банковская карта (добавьте в личном кабинете)</option>
+            <option value="cash" selected="@(Model.Pay == "cash" ? "selected" : null)">Наличные</option>
+        </select>
+    </div>
+
+    <div>
+        <label>Адрес доставки:</label>
+        <input asp-for="Address" class="form-control" placeholder="Введите адрес доставки" value="@Model.Address" />
+        <span asp-validation-for="Address" class="text-danger"></span>
+    </div>
+
+    <div>
+        <label>Комментарий к заказу:</label>
+        <textarea asp-for="Comment" class="form-control mb-2"></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary ">Оформить заказ</button>
+</form>

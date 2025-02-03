@@ -1,0 +1,61 @@
+@{
+    ViewBag.Title = "Способы оплаты";
+}
+
+<h2>Способы оплаты</h2>
+
+<p>Текущий способ оплаты: @ViewBag.Pay</p>
+
+<form asp-action="Pay" method="post">
+    <div>
+        <label for="pay">Выберите способ оплаты</label>
+        <select id="pay" name="pay" onchange="toggleCardInput(this.value)" required>
+            <option value="Cash">Наличные</option>
+            <option value="Card">Карта</option>
+        </select>
+    </div>
+
+    <div id="cardInput" style="display: @(ViewBag.Pay == "Card" ? "block" : "none");">
+        <label for="cardNumber">Введите номер карты</label>
+        <input type="text" id="cardNumber" name="cardNumber" maxlength="16" value="@ViewBag.CardNumber" />
+    </div>
+
+    <button type="submit">Сохранить</button>
+</form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var selectedPay = '@ViewBag.Pay'; // Получаем значение из ViewBag
+        
+        // Устанавливаем выбранный option в зависимости от значения
+        var paySelect = document.getElementById('pay');
+        for (var i = 0; i < paySelect.options.length; i++) {
+            if (paySelect.options[i].value === selectedPay) {
+                paySelect.selectedIndex = i;
+                break;
+            }
+        }
+
+        // Скрываем/открываем поле ввода номера карты в зависимости от выбранного способа
+        toggleCardInput(selectedPay);
+    });
+
+    function toggleCardInput(paymentType) {
+        var cardInput = document.getElementById("cardInput");
+        cardInput.style.display = paymentType === "Card" ? "block" : "none";
+    }
+</script>
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="error">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="success">
+        @TempData["SuccessMessage"]
+    </div>
+}

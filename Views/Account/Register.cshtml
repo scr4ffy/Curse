@@ -1,0 +1,39 @@
+@model BikeShop.Models.RegisterViewModel
+
+<div class="container">
+    <div class="row justify-content-center align-items-center" style="min-height: 50vh;">
+        <div class="col-md-4">
+            <form asp-action="Register" method="post" class="text-center">
+                <h1>Регистрация</h1>
+                <div class="mb-3">
+                    <label asp-for="Email" class="form-label">Email</label>
+                    <input asp-for="Email" class="form-control" required />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Password" class="form-label">Пароль</label>
+                    <input asp-for="Password" type="password" class="form-control" required />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+            </form>
+
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <div class="alert alert-success mt-3">
+                    @TempData["SuccessMessage"]
+                </div>
+            }
+            @if (TempData["ErrorMessage"] != null)
+            {
+                <div class="alert alert-danger mt-3">
+                    @TempData["ErrorMessage"]
+                </div>
+            }
+            <div class="mt-3">
+                <span>Уже есть аккаунт? </span>
+                <a href="~/Account/Login" class="btn btn-link">Войти</a>
+            </div>
+        </div>
+    </div>
+</div>
